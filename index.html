@@ -7,11 +7,81 @@
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
   </head>
   <body>
-    <a-scene mindar-image="imageTargetSrc: ./targets.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <a-scene
+      mindar-image="imageTargetSrc: https://cdn.glitch.global/81bdb42a-9607-46e4-b337-1138d7cc0be7/targets.mind?v=1645997975170;"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLighting"
+    >
+      <a-camera position="0 0 0" look-controls="enabled: fasle" cursor="fuse: false; rayOrigin: mouse;" raycaster="near: 10; far: 10000">
+      </a-camera>
+      <a-assets>
+        <img
+          id="card"
+          src="https://cdn.glitch.global/81bdb42a-9607-46e4-b337-1138d7cc0be7/targets.mind?v=1645997975170"
+        />
+        <a-asset-item
+          id="avatarModel"
+          src="https://cdn.glitch.global/81bdb42a-9607-46e4-b337-1138d7cc0be7/scene.gltf?v=1645999202030"
+        ></a-asset-item>
+      </a-assets>
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-plane color="blue" opaciy="0.5" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+        <!-- <a-plane
+          src="#card"
+          position="0 0 0"
+          height="0.552"
+          width="1"
+          rotation="0 0 0"
+        ></a-plane> -->
+        <!-- LinkedIn Cube -->
+        <a-box
+          position="0 0.1 0.1"
+          rotation="0 45 45"
+          width="0.15" height="0.15" depth="0.15"
+          animation="property:rotation; to: 315 360 360; loop: true; dur: 15000; dir: alternate; easing: linear"
+          cursor-listener
+          src="https://cdn.glitch.global/81bdb42a-9607-46e4-b337-1138d7cc0be7/linkedinavi.png?v=1646053150442"
+          link="on: click; href: https://www.linkedin.com/in/graceleefallon/"
+        >
+        </a-box>
+        <!-- Github Cube -->
+         <a-box
+          position="-0.2 -0.1 0.1"
+          rotation="330 360 360"
+          width="0.15" height="0.15" depth="0.15"
+          animation="property:rotation; to: 0 30 30; loop: true; dur: 15000; dir: alternate;easing: linear"
+          cursor-listener
+          src="https://cdn.glitch.global/81bdb42a-9607-46e4-b337-1138d7cc0be7/githubIcon.png?v=1646053851474"
+          link="on: click; href: https://github.com/angelofgrace"
+        >
+        </a-box>
+        <!--Instagram Cube -->
+        <a-box
+          position="0.2 -0.1 0.1"
+          rotation="330 360 360"
+          width="0.15" height="0.15" depth="0.15"
+          animation="property:rotation; to: 0 30 30; loop: true; dur: 15000; dir: alternate;easing: linear"
+          cursor-listener
+          src="https://cdn.glitch.global/81bdb42a-9607-46e4-b337-1138d7cc0be7/Instagram-logo-gif-dot-flashing.gif?v=1646055640854"
+          link="on: click; href: https://www.instagram.com/plein_ar/"
+        >
+        </a-box>
       </a-entity>
+      <script>
+        AFRAME.registerComponent("cursor-listener", {
+          init: function () {
+            var lastIndex = -1;
+            var COLORS = ["red", "green", "blue"];
+            this.el.addEventListener("click", function (evt) {
+              lastIndex = (lastIndex + 1) % COLORS.length;
+              this.setAttribute("material", "color", COLORS[lastIndex]);
+              
+              console.log("I was clicked at: ", evt.detail.intersection.point);
+            });
+          },
+        });
+      </script>
     </a-scene>
   </body>
 </html>
